@@ -35,9 +35,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'note',
     'corsheaders',
-
-    
+    'crispy_forms',
+    'crispy_bootstrap5',
+      
 ]
+
+# django-crispy-forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,9 +83,9 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        "NAME": 'de80st4rp5fpjk',
-        "USER": 'ue69ha07lna4v8',
-        "PASSWORD": 'p57d705399cc9fd8b7055eadc311c6929abb95dabb74dc9680ce43f7ab199e92c',
+        "NAME": 'd1qam4qoivp0u5',
+        "USER": 'u4d9h7faa13733',
+        "PASSWORD": 'pce546174a4d02b7fe4b64651133adb4bd7362ebe0e7041737a0371228cdf9841',
         "HOST": 'ccu6unqr99fgui.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com',
         "PORT": '5432',
     }
