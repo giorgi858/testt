@@ -3,20 +3,73 @@
 
 {% block title %} Home {% endblock title %}
 {% block content %}
+{% load crispy_forms_tags %}
+
 <div class="text-center">
 
 {% if user.is_authenticated %}
 
     <h2>Hello {{user}} &#128522;</h2>
-    <img class="aisi" src="{% static 'image/aisi_photo.jpg' %}">
+    <!-- <img class="aisi" src="{% static 'image/aisi_photo.jpg' %}"> -->
 {% else %}
-    <H1>მივესალმები აისელებს &#128522;</H1>
+    <H1>Hello Everyone &#128522;</H1>
     <br/><br/><br/>
-    <img class="aisi" src="{% static 'image/aisi_main.jpg' %}">
+    <!-- <img class="aisi" src="{% static 'image/aisi_main.jpg' %}"> -->
 
 {% endif %}
 </div>
+<br/>
+<br/>
+<section>
+  <article>
+    <h1>Make a To do List</h1>
+    <div class="row">
+      <div class="column">
+        
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success w-50">Save</button>
+</form>
+<br/>
+
+    <!-- {% for formo in form %}
+        <li>
+          {{formo.task}} 
+        </li>
+    {% empty %}
+        <li>No tasks yet!</li> <!-- Shown if the list is empty -->
+    {% endfor %} -->
 
 
+
+</div>
+  </article>
+</section>
+
+
+
+<br/>
+<br/>
+
+
+
+{% for todo in todos %}
+ <div class="mb-4">
+  <div class="border my-3">
+  <label class="block font-bold">{{ todo.task }}</label>
+    <br/>
+        <label class="block font-bold">{{ todo.describtion }}</label>
+
+    <button class="btn btn-primary">Edit</button>
+    <button class="btn btn-danger">Delete</button>
+
+  </div>
+  
+    {% if todo.errors %}
+      <div class="text-red-500">{{ todo.errors }}</div>
+    {% endif %}
+  </div>
+{% endfor %}
 
 {% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Form {% endblock title %}
+{% block content %}
+
+{% for todo in todos %}
+    <h2>{{todo.task}}</h2>
+    <h4>{{todo.description}}</h4>
+{% endfor %}
+
+{% endblock content %}
