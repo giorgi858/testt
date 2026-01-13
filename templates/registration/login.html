@@ -6,13 +6,18 @@
 {% block title %} Log In{% endblock title %}
 
 {% block content %}
-<h2>Log In</h2>
+<div style="min-height: 70vh;">
+    <br/>
+<h2 >Log In</h2>
 <form method="POST">
     {% csrf_token %}
     {{ form|crispy }}
     <button class="btn btn-outline-success" type="submit">Log In</button>
-
+    <br/><br/>
+    <p>Don't Have an Accout? <a type="button" class="btn btn-sm btn-outline-success"  href="{% url 'signup' %}"> Register</a></p>
 </form>
+</div>
+
 
 
 {% endblock %}

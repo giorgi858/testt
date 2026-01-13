@@ -3,28 +3,39 @@ from django.views import generic
 from .forms import CustomerUserCreationForm, TodoForm
 from django.urls import reverse_lazy
 from .models import Todo
+from django.contrib.auth.decorators import login_required
 
-def home(request):
-    todos = Todo.objects.all()
+def aboutView(request):
+    return render(request, 'about.html', {})
+
+@login_required
+def todolistView(request):
+    todos = Todo.objects.filter(author=request.user)
     form = TodoForm()
     if request.method == "POST":
         form = TodoForm(request.POST or None)
         if form.is_valid():
-            form.save()
-            task = form.cleaned_data['task']
-            describtion = form.cleaned_data['describtion']
-            print('task', task)
-            print('describtion', describtion)
+            # Commit False prevents saving to the database immediately
+            post = form.save(commit=False)
+            print(request.user)
+            # Assign the current logged-in user to the note
+            post.author  = request.user
+            # Now save the instance to the database
+            post.save()
+            return redirect('todo') # Redirect to the note list page
+        else:
             form = TodoForm()
-        return redirect('home')
-
     context = {
         "todos": todos,
          "form": form 
     }
-    return render(request,"home.html", context)
+    return render(request,"todo.html", context)
 
 
+def home(request):
+    return render(request,"home.html", {})
+
+@login_required
 def note_update_view(request, pk):
     obj = get_object_or_404(Todo, pk=pk)
     form = TodoForm(request.POST or None, instance=obj)
@@ -32,14 +43,15 @@ def note_update_view(request, pk):
         form = TodoForm(request.POST, instance=obj)
         if form.is_valid():
             form.save() 
-        return redirect('home')
+        return redirect('todo')
     return render(request, 'task_edit.html', { 'form': form })
 
+@login_required
 def note_delete_view(request, pk):
     obj = get_object_or_404(Todo, pk=pk)
     if request.method == "POST":
         obj.delete()
-        return redirect('/')
+        return redirect('todo')
     context = {
         'object': obj
     }
@@ -54,7 +66,7 @@ class SignupPageView(generic.CreateView):
     template_name = 'registration/signup.html'
      
 def myform(request):
-    Todos = Todo.objects.all()
+    Todos = Todo.objects.filter(author=request.user)
     context = {
         'todos': Todos
     }
