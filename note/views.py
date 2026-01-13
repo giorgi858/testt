@@ -6,7 +6,7 @@ from .models import Todo
 from django.contrib.auth.decorators import login_required
 
 def aboutView(request):
-    return render(request, 'about.html', {})
+    return render(request, 'About.html', {})
 
 @login_required
 def todolistView(request):
