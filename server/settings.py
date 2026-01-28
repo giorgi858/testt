@@ -91,6 +91,13 @@ DATABASES = {
     }}
 
 
+# DB_NAME=''
+# DB_USER=''
+# DB_PORT=''
+# DB_HOST=''
+# DB_PWD=''
+
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
